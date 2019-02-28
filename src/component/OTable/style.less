@@ -1,0 +1,72 @@
+.o-table {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  .o-table-title, 
+  .o-table-page {
+    width: 100%;
+    line-height: 40px;
+    flex: 0 0 40px;
+  }
+  .o-table-title {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    .o-table-title-text {
+      font-size: 16px;
+    }
+    .o-table-title-btn {
+      align-self: flex-end;
+      button {
+        margin-left: 5px;
+      }
+    }
+  }
+  .o-table-page {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+  .o-table-box {
+    width: 100%;
+    position: relative;
+    overflow: auto;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    .o-table-nodata-box {
+      flex: 0 0 0;
+      .o-table-nodata {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+    .ant-spin-nested-loading {
+      flex: 0 0 0;
+      position: static;
+      > div {
+        > .ant-spin {
+          max-height: none;
+          top: 0;
+          left: 0;
+          background-color: rgba(255, 255, 255, 0.7);
+          z-index: 999;
+        }
+      }
+    }
+  }
+  .o-table-current-row {
+    background-color: rgb(209, 234, 255)!important;
+  }
+  .handsontable th, .handsontable td {
+    vertical-align: middle;
+  }
+  .handsontable .wtHolder .htCore tbody tr td {
+    word-break: break-all;
+  }
+}

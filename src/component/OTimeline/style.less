@@ -1,0 +1,71 @@
+.o-timeline-container {
+    width: 100%;
+    height: 100%;
+    min-height: 90px;
+    padding: 5px;
+
+    .o-timeline-wrap {
+        display: flex;
+    }
+
+    .o-timeline-box {
+        flex: 1 1 auto;
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+    }
+
+    .o-timeline-line {
+        height: 1px;
+        background-color: #ccc;
+        flex: 1 1 auto;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .o-timeline-item {
+        height: 16px;
+        text-align: center;
+        position: relative;
+        flex: 0 1 65px;
+    }
+
+    .o-timeline-point {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 1px solid #fda7a7;
+        background-color: #fff;
+        transition: all 0.3s;
+        cursor: pointer;
+    }
+
+    .o-timeline-point-active {
+        border: 2px solid #fda7a7;
+        background-color: #f36060;
+    }
+
+    .o-timeline-title {
+        position: absolute;
+        top: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        min-width: 65px;
+        white-space: pre-line;
+        word-wrap: break-word;
+        font-size: 12px;
+        color: #304654;
+        cursor: pointer;
+    }
+
+    .o-timeline-btn {
+        flex: 0 0 32px;
+    }
+
+    .o-timeline-btn + .o-timeline-btn {
+        margin-left: 10px;
+    }
+}

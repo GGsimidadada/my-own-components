@@ -1,0 +1,50 @@
+{
+  "name": "react-go-cpt",
+  "version": "1.0.0",
+  "description": "自己封装的一些react组件",
+  "main": "dist/bundle.js",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --env.NODE_ENV=production",
+    "dev": "webpack-dev-server --env.NODE_ENV=development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GGsimidadada/my-own-components.git"
+  },
+  "author": "gaohaoran",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GGsimidadada/my-own-components/issues"
+  },
+  "homepage": "https://github.com/GGsimidadada/my-own-components#readme",
+  "dependencies": {
+    "antd": "^3.13.6",
+    "moment": "^2.24.0",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-react": "^7.0.0",
+    "@types/react": "^16.8.5",
+    "@types/react-dom": "^16.8.2",
+    "babel-loader": "^8.0.5",
+    "css-loader": "^2.1.0",
+    "html-webpack-plugin": "^3.2.0",
+    "less": "^3.8.1",
+    "less-loader": "^4.1.0",
+    "style-loader": "^0.23.1",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.3.3333",
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.2.1",
+    "webpack-node-externals": "^1.7.2"
+  }
+}
