@@ -10,7 +10,7 @@ export default class OTimeline extends Component<IProps, IState> {
         pointInterval: 1,
     };
     public timer: number | void = void 0;
-    public static readonly pointWidth: number = 65;
+    public static readonly pointWidth: number = 70;
     public lineDOM: HTMLDivElement | null = null;
     public pointInterval: number = 1;
 

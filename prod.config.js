@@ -1,16 +1,14 @@
 const path = require('path');
-const htmlWebpackPlugin = require('html-webpack-plugin');
+const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
-    mode: 'development',
-    entry: "../src/app.jsx",
+    mode: 'production',
+    entry: './src/app.jsx',
     output: {
         filename: 'bundle.js',
-        path: '../dist',
+        path: path.resolve(__dirname, './dist'),
+        libraryTarget: 'commonjs2'
     },
-    resolve: {
-		extensions: [".js", ".jsx", ".less", ".css", ".ts", ".tsx"]
-	},
     module: {
         rules: [
             {
@@ -21,7 +19,7 @@ module.exports = {
 			{
 				test: /\.(ts|tsx)$/,
 				exclude: /node_modules/,
-				loader: "ts-loader"
+				loader: ["babel-loader", "ts-loader"]
 			},
 			{
 				test: /\.css$/,
@@ -33,12 +31,5 @@ module.exports = {
 			},
         ]
     },
-    devServer: {
-        contentBase: './dist',
-    },
-    plugins: [
-        new htmlWebpackPlugin({
-            template: '../src/index.html',
-        })
-    ]
+    externals: [ nodeExternals() ]
 }

@@ -1,7 +1,7 @@
 module.exports = (env) => {
     if (env.NODE_ENV === 'production') {
-        return require('./webpack/prod.config.js');
+        return require('./prod.config.js');
     } else {
-        return require('./webpack/dev.config');
+        return require('./dev.config');
     }
 }
