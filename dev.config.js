@@ -2,7 +2,7 @@ const path = require('path');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const tsImportPluginFactory = require('ts-import-plugin');
 // 这个插件使webpack打包的组件中不包括任何node_modules里面的第三方组件
-const nodeExternals = require('webpack-node-externals');
+// const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
     mode: 'development',
@@ -72,5 +72,5 @@ module.exports = {
             template: path.resolve(__dirname, './example/index.html'),
         })
     ],
-    externals: [ nodeExternals() ]
+    // externals: [ nodeExternals() ]
 }
