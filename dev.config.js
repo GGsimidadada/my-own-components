@@ -1,9 +1,12 @@
 const path = require('path');
 const htmlWebpackPlugin = require('html-webpack-plugin');
+const tsImportPluginFactory = require('ts-import-plugin');
+// 这个插件使webpack打包的组件中不包括任何node_modules里面的第三方组件
+const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
     mode: 'development',
-    entry: ["babel-polyfill", path.resolve(__dirname, "src/app.jsx")],
+    entry: ["babel-polyfill", path.resolve(__dirname, "example/app.jsx")],
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, './dist'),
@@ -24,8 +27,22 @@ module.exports = {
 				test: /\.(ts|tsx)$/,
                 exclude: /node_modules/,
                 use: [
-                    { loader: "babel-loader", },
-                    { loader: "ts-loader" },
+                    { 
+                        loader: "ts-loader",
+                        options: {
+                            transpileOnly: true,
+                            getCustomTransformers: () => ({
+                                before: [ tsImportPluginFactory({
+                                    libraryName: 'antd',
+                                    libraryDirectory: 'lib',
+                                    style: 'css'
+                                }) ],
+                            }),
+                            compilerOptions: {
+                                module: 'es2015'
+                            }
+                        }
+                    },
                 ]
 			},
 			{
@@ -52,7 +69,8 @@ module.exports = {
     },
     plugins: [
         new htmlWebpackPlugin({
-            template: path.resolve(__dirname, './src/index.html'),
+            template: path.resolve(__dirname, './example/index.html'),
         })
-    ]
+    ],
+    externals: [ nodeExternals() ]
 }

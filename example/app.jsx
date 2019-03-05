@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { OTimeline } from './component';
+import { OTimeline } from 'react-go-cpt';
 import { TESTDATA } from './constants';
 
 ReactDOM.render(

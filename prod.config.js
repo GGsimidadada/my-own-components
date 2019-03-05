@@ -1,14 +1,18 @@
 const path = require('path');
+const tsImportPluginFactory = require('ts-import-plugin');
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
     mode: 'production',
-    entry: './src/app.jsx',
+    entry: ["babel-polyfill", path.resolve(__dirname, "./src/index.js")],
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, './dist'),
         libraryTarget: 'commonjs2'
-    },
+	},
+	resolve: {
+		extensions: [".js", ".jsx", ".less", ".css", ".ts", ".tsx"]
+	},
     module: {
         rules: [
             {
@@ -18,8 +22,25 @@ module.exports = {
 			},
 			{
 				test: /\.(ts|tsx)$/,
-				exclude: /node_modules/,
-				loader: ["babel-loader", "ts-loader"]
+                exclude: /node_modules/,
+                use: [
+                    { 
+                        loader: "ts-loader",
+                        options: {
+                            transpileOnly: true,
+                            getCustomTransformers: () => ({
+                                before: [ tsImportPluginFactory({
+                                    libraryName: 'antd',
+                                    libraryDirectory: 'lib',
+                                    style: 'css'
+                                }) ],
+                            }),
+                            compilerOptions: {
+                                module: 'es2015'
+                            }
+                        }
+                    },
+                ]
 			},
 			{
 				test: /\.css$/,
