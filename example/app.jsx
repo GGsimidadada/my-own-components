@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { OTimeline } from 'react-go-cpt';
+import { OTimeline, OTree2 } from '../src';
 import { TESTDATA } from './constants';
 
 ReactDOM.render(
-    <OTimeline data = { TESTDATA } />,
+    <OTree2 />,
     document.getElementById('root'),
 );
