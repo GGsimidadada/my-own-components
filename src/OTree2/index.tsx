@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Tree, Input } from 'antd';
+import { Tree, Input, Button } from 'antd';
 const TreeNode = Tree.TreeNode;
-const data = [
+const data: TreeNode[] = [
     {
         key: 'root', title: 'root', children: [
             { key: 'child1', title: 'child1' },
@@ -20,6 +20,7 @@ interface TreeNode {
 export default class OTree2 extends Component {
     public state = {
         data,
+        selectedKeys: [],
     }
 
     setTitle2Key(data: TreeNode[], value: string, key: string) {
@@ -36,10 +37,68 @@ export default class OTree2 extends Component {
         return false;
     }
 
+    addData2Key (data: TreeNode[], value: TreeNode, key: string) {
+        for (let i = 0; i < data.length; i++) {
+            const item = data[i];
+            if (item.key === key) {
+                data.splice(i + 1, 0, value);
+                return true;
+            }
+            if (item.children instanceof Array && item.children.length > 0) {
+                const result = this.addData2Key(item.children, value, key);
+                if (result) return true;
+            }
+        }
+        return false;
+    }
+
+    removeData2Key (data: TreeNode[], key: string) {
+        for (let i = 0; i < data.length; i++) {
+            const item = data[i];
+            if (item.key === key) {
+                data.splice(i, 1);
+                return true;
+            }
+            if (item.children instanceof Array && item.children.length > 0) {
+                const result = this.removeData2Key(item.children, key);
+                if (result) return true;
+            }
+        }
+        return false;
+    }
+
     handleRename(value: string, key: string) {
         const { data } = this.state;
-        this.setTitle2Key(data, value, key);
-        this.setState({ data });
+        const result = this.setTitle2Key(data, value, key);
+        if (result) this.setState({ data });
+    }
+
+    handleAdd () {
+        const { data, selectedKeys } = this.state;
+        const key = selectedKeys[0];
+        if (key) {
+            const result = this.addData2Key(data, { key: `${ Math.random() }`, title: '新建节点' }, key);
+            console.log(data);
+            if (result) this.setState({ data });
+        } else {
+            data.push({ key: `${ Math.random() }`, title: '新建节点' });
+            this.setState({ data });
+        }
+    }
+
+    handleDelete () {
+        const { data, selectedKeys } = this.state;
+        const key = selectedKeys[0];
+        if(key) {
+            const result = this.removeData2Key(data, key);
+            if (result) this.setState({ data });
+        }
+    }
+
+    handleSelect (keys: string[], info: any) {
+        const { selectedKeys } = this.state;
+        if (keys.length === 0) keys = selectedKeys;
+        this.setState({ selectedKeys: keys });
     }
 
     renderTreeNode(data: any[]) {
@@ -73,11 +132,20 @@ export default class OTree2 extends Component {
     }
 
     render() {
-        const { data } = this.state;
+        const { data, selectedKeys } = this.state;
         return (
-            <Tree>
-                {this.renderTreeNode(data)}
-            </Tree>
+            <div>
+                <div>
+                    <Button onClick = { () => this.handleAdd() } >增加</Button>
+                    <Button onClick = { () => this.handleDelete() } >删除</Button>
+                </div>
+                <Tree
+                    selectedKeys = { selectedKeys }
+                    onSelect = { (keys, info) => this.handleSelect(keys, info) }
+                >
+                    {this.renderTreeNode(data)}
+                </Tree>
+            </div>
         )
     }
 }
